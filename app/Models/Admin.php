@@ -27,4 +27,20 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verfied_at' => 'datetime'
     ];
+
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
+
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount(['blogs']);
+    }
+
+    public function all_blogs()
+    {
+        $blogIds = $this->blogs()->pluck('blogs.id')->toArray();
+        return Blog::whereIn('id', $blogIds);
+    }
 }
