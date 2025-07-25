@@ -5,7 +5,7 @@
         <h1>{{ $blog->title }}</h1>
     </div>
     <div class="w-full my-4 rounded">
-        <p>{{ $blog->content }}</p>
+        <p>{!! nl2br(e($blog->content)) !!}</p>
     </div>
 
     @if (Auth::check())

@@ -52,17 +52,11 @@ class AdminBlogsController extends Controller
                 'content' => $request->input('content'),
             ]);
 
-            return redirect()->route('blogs.index');
+            return redirect()->route('admin-blogs.index');
 
         } else {
             return redirect()->back()->with('error', '管理者としてログインしていません。');
         }
-        // $blog = new Blog;
-        // $blog->admin_id = $admin->id;
-        // $blog->title = $request->input('title');
-        // $blog->content = $request->input('content');
-        // $blog->save();
-
     }
 
     // getでmessages/（任意のid）/editにアクセスされた場合の「更新画面表示処理」
@@ -92,16 +86,6 @@ class AdminBlogsController extends Controller
         } else {
             return redirect()->back()->with('error', '管理者としてログインしていません。');
         }
-
-        // $request->admin()->blogs()->create([
-        //     'content' => $request->content,
-        // ]);
-
-        // $blog->update($request->all());
-
-        // $blog->title = $request->title;
-        // $blog->content = $request->content;
-        // $blog->save();
     }
 
     // deleteでmessages/（任意のid）にアクセスされた場合の「削除処理」

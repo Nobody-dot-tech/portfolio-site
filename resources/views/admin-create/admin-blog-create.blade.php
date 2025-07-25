@@ -1,6 +1,6 @@
 @if (Auth::guard('admin')->check())
     <div class="mt-4">
-        <form method="POST" action="{{ route('blogs.store') }}">
+        <form method="POST" action="{{ route('admin-blogs.store') }}">
             @csrf
             <div class="form-control mt-4">
                 <label class="label">

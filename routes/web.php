@@ -3,12 +3,16 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ConcertsController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\GoodsController;
+use App\Http\Controllers\WorksController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminBlogsController;
+use App\Http\Controllers\AdminWorksController;
+use App\Http\Controllers\AdminTagsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,11 +26,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'dashboard_blogs'])
+Route::get('/', [DashboardController::class, 'dashboard_contents'])
     // ->middleware(['auth', 'verified'])
     ->name('home');
 
-Route::get('/dashboard', [DashboardController::class, 'dashboard_blogs'])
+Route::get('/dashboard', [DashboardController::class, 'dashboard_contents'])
     // ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -35,6 +39,8 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard_blogs'])
 // });
 
 Route::resource('blogs', BlogsController::class, ['only' => ['index', 'show']]);
+
+Route::resource('concerts', ConcertsController::class, ['only' => ['index', 'show']]);
 
 Route::get('comments', [CommentsController::class, 'show'])->name('comments.show');
 
@@ -46,6 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('cancel_good', [GoodsController::class, 'destroy'])->name('goods.cancel_good');
         });
 });
+
+Route::resource('works', WorksController::class, ['only' => ['index', 'show']]);
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -70,6 +78,7 @@ Route::get('/admin/dashboard', function () {
 })->middleware('auth:admin');
 
 Route::group(['middleware' => ['auth:admin']], function () {
+
     Route::resource('/admin/blogs', \App\Http\Controllers\AdminBlogsController::class)
     ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
     ->names([
@@ -79,6 +88,39 @@ Route::group(['middleware' => ['auth:admin']], function () {
         'edit' => 'admin-blogs.edit',
         'update' => 'admin-blogs.update',
         'destroy' => 'admin-blogs.destroy',
+    ]);
+
+    Route::resource('/admin/concerts', \App\Http\Controllers\AdminConcertsController::class)
+    ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
+    ->names([
+        'index' => 'admin-concerts.index',
+        'create' => 'admin-concerts.create',
+        'store' => 'admin-concerts.store',
+        'edit' => 'admin-concerts.edit',
+        'update' => 'admin-concerts.update',
+        'destroy' => 'admin-concerts.destroy',
+    ]);
+
+    Route::resource('/admin/works', \App\Http\Controllers\AdminWorksController::class)
+    ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
+    ->names([
+        'index' => 'admin-works.index',
+        'create' => 'admin-works.create',
+        'store' => 'admin-works.store',
+        'edit' => 'admin-works.edit',
+        'update' => 'admin-works.update',
+        'destroy' => 'admin-works.destroy',
+    ]);
+
+    Route::resource('/admin/tags', \App\Http\Controllers\AdminTagsController::class)
+    ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
+    ->names([
+        'index' => 'admin-tags.index',
+        'create' => 'admin-tags.create',
+        'store' => 'admin-tags.store',
+        'edit' => 'admin-tags.edit',
+        'update' => 'admin-tags.update',
+        'destroy' => 'admin-tags.destroy',
     ]);
 });
 

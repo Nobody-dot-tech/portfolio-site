@@ -4,7 +4,7 @@
 
 <!-- ニュース抜粋 -->
 
-<!-- 公演情報抜粋 -->
+@include('for-dashboard.dashboard-concerts')
 
 @include('for-dashboard.dashboard-blogs')
 
