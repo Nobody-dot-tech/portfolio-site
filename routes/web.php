@@ -73,6 +73,10 @@ Route::post('/admin/login', [\App\Http\Controllers\AdminLoginController::class, 
 
 Route::get('/admin/logout', [\App\Http\Controllers\AdminLoginController::class, 'adminLogout'])->name('admin.logout');
 
+Route::get('/admin', function () {
+    return view('adminDashboard');
+});
+
 Route::get('/admin/dashboard', function () {
     return view('adminDashboard');
 })->middleware('auth:admin');
